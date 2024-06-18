@@ -10,17 +10,16 @@ import Foundation
 enum APIError: LocalizedError {
     case unknown(String?)
     case api(APIErrorObject)
+    case certificateFailed(String?)
     
     public var errorDescription: String? {
         switch self {
         case .unknown(let message):
-            if let message = message {
-                return message
-            } else {
-                return "An unknown Error occurred."
-            }
+            message ?? "An unknown Error occurred."
         case .api(let apiErrorObject):
-            return apiErrorObject.statusMessage
+            apiErrorObject.statusMessage
+        case .certificateFailed:
+            "Certificate pinning failed."
         }
     }
 }

@@ -20,9 +20,19 @@ struct DashboardView: View {
             
             Spacer()
         }
-        .alert(isPresented: $viewModel.isShowinError, error: viewModel.apiError) {
+        .alert(isPresented: $viewModel.isShowinError, error: viewModel.apiError) { _ in
+            Button("Retry") {
+                viewModel.isShowinError = false
+                viewModel.retry()
+            }
+            
             Button("OK", role: .cancel) {
                 viewModel.isShowinError = false
+            }
+        } message: { error in
+            if case let .certificateFailed(certificate) = error,
+            let certificate {
+                Text(certificate)
             }
         }
     }

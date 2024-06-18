@@ -17,6 +17,8 @@
 		A0F96A3A2C217A4F000D2200 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A392C217A4F000D2200 /* NetworkManager.swift */; };
 		A0F96A3D2C217C95000D2200 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A3C2C217C95000D2200 /* APIError.swift */; };
 		A0F96A3F2C217FA1000D2200 /* QuoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A3E2C217FA1000D2200 /* QuoteResponse.swift */; };
+		A0F96A432C218FD1000D2200 /* api.quotable.io.der in Resources */ = {isa = PBXBuildFile; fileRef = A0F96A422C2186DF000D2200 /* api.quotable.io.der */; };
+		A0F96A452C219300000D2200 /* URLSessionNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A442C219300000D2200 /* URLSessionNetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		A0F96A392C217A4F000D2200 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A0F96A3C2C217C95000D2200 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		A0F96A3E2C217FA1000D2200 /* QuoteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteResponse.swift; sourceTree = "<group>"; };
+		A0F96A422C2186DF000D2200 /* api.quotable.io.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = api.quotable.io.der; sourceTree = "<group>"; };
+		A0F96A442C219300000D2200 /* URLSessionNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +70,9 @@
 				A0F96A3B2C217C8B000D2200 /* Models */,
 				A0F96A382C217A41000D2200 /* Network Layer */,
 				A0F96A2C2C21712E000D2200 /* Scenes */,
+				A0F96A402C2186AE000D2200 /* Resources */,
 				A0F96A1E2C216BDB000D2200 /* SSLPinningDemoApp.swift */,
 				A0F96A202C216BDB000D2200 /* ContentView.swift */,
-				A0F96A222C216BDC000D2200 /* Assets.xcassets */,
 				A0F96A242C216BDC000D2200 /* Preview Content */,
 			);
 			path = SSLPinningDemo;
@@ -137,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				A0F96A392C217A4F000D2200 /* NetworkManager.swift */,
+				A0F96A442C219300000D2200 /* URLSessionNetworkManager.swift */,
 			);
 			path = "Network Layer";
 			sourceTree = "<group>";
@@ -147,6 +152,23 @@
 				A0F96A3C2C217C95000D2200 /* APIError.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A0F96A402C2186AE000D2200 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A412C2186C3000D2200 /* Certificates */,
+				A0F96A222C216BDC000D2200 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A0F96A412C2186C3000D2200 /* Certificates */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A422C2186DF000D2200 /* api.quotable.io.der */,
+			);
+			path = Certificates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0F96A432C218FD1000D2200 /* api.quotable.io.der in Resources */,
 				A0F96A262C216BDC000D2200 /* Preview Assets.xcassets in Resources */,
 				A0F96A232C216BDC000D2200 /* Assets.xcassets in Resources */,
 			);
@@ -220,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0F96A3A2C217A4F000D2200 /* NetworkManager.swift in Sources */,
+				A0F96A452C219300000D2200 /* URLSessionNetworkManager.swift in Sources */,
 				A0F96A212C216BDB000D2200 /* ContentView.swift in Sources */,
 				A0F96A2F2C217401000D2200 /* DashboardView.swift in Sources */,
 				A0F96A3F2C217FA1000D2200 /* QuoteResponse.swift in Sources */,

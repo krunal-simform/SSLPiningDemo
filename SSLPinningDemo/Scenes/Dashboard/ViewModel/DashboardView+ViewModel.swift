@@ -49,4 +49,10 @@ extension DashboardViewModel {
 
 // MARK: - Methods
 extension DashboardViewModel {
+    
+    func retry() {
+        Task {
+            await loadRandomThought()
+        }
+    }
 }
