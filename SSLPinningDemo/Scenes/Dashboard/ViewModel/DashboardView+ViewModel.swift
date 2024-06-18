@@ -11,9 +11,10 @@ import SwiftUI
 class DashboardViewModel {
     
     // MARK: - Vars & Lets
-    private(set) var quote = "Fetching some words of wisdom..."
+    private(set) var quote = "Let's have some words of wisdom..."
     private let urlSessionNetworkManager = URLSessionNetworkManager.shared
     private let quoteURL = URL(string: "https://api.quotable.io/quotes/random")!
+    private var currentAuthMethod: AuthenticationMethod = .certificate
     @ObservationIgnored var apiError: APIError?
     var isShowinError: Bool = false {
         didSet {
@@ -22,21 +23,20 @@ class DashboardViewModel {
             }
         }
     }
+}
+
+// MARK: - URLSession Methods
+extension DashboardViewModel {
     
-    // MARK: - Initializer
-    init() {
+    private func loadWithURLSession() {
         Task {
             await loadRandomThought()
         }
     }
-}
-
-// MARK: - Private Methods
-extension DashboardViewModel {
     
     private func loadRandomThought() async {
         do {
-            let quoteResponse: [QuoteResponse] = try await urlSessionNetworkManager.request(url: quoteURL)
+            let quoteResponse: [QuoteResponse] = try await urlSessionNetworkManager.request(url: quoteURL, authenticationMethod: currentAuthMethod)
             quote = quoteResponse[0].content
         } catch let apiError as APIError {
             self.apiError = apiError
@@ -54,5 +54,20 @@ extension DashboardViewModel {
         Task {
             await loadRandomThought()
         }
+    }
+    
+    func loadWithURLSessionNoPinning() {
+        currentAuthMethod = .noPinning
+        loadWithURLSession()
+    }
+    
+    func loadWithURLSessionCertificatePinning() {
+        currentAuthMethod = .certificate
+        loadWithURLSession()
+    }
+    
+    func loadWithURLSessionPublicKeyPinning() {
+        currentAuthMethod = .publicKey
+        loadWithURLSession()
     }
 }

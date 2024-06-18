@@ -19,6 +19,8 @@ struct DashboardView: View {
                 .preferredColorScheme(.dark)
             
             Spacer()
+            
+            loadingButtons
         }
         .alert(isPresented: $viewModel.isShowinError, error: viewModel.apiError) { _ in
             Button("Retry") {
@@ -30,7 +32,7 @@ struct DashboardView: View {
                 viewModel.isShowinError = false
             }
         } message: { error in
-            if case let .certificateFailed(certificate) = error,
+            if case let .pinningFailed(_, certificate) = error,
             let certificate {
                 Text(certificate)
             }
@@ -38,6 +40,43 @@ struct DashboardView: View {
     }
 }
 
+// MARK: - Views
+extension DashboardView {
+    
+    @ViewBuilder
+    private var loadingButtons: some View {
+        VStack(spacing: 24) {
+            Button {
+                viewModel.loadWithURLSessionNoPinning()
+            } label: {
+                Text("URLSession - Without Pinning")
+                    .frame(minWidth: 276)
+                    .padding(.vertical, 8)
+            }
+            .buttonStyle(BorderedButtonStyle())
+            
+            Button {
+                viewModel.loadWithURLSessionCertificatePinning()
+            } label: {
+                Text("URLSession - Certificate Pinning")
+                    .frame(minWidth: 276)
+                    .padding(.vertical, 8)
+            }
+            .buttonStyle(BorderedButtonStyle())
+            
+            Button {
+                viewModel.loadWithURLSessionPublicKeyPinning()
+            } label: {
+                Text("URLSession - Public Key Pinning")
+                    .frame(minWidth: 276)
+                    .padding(.vertical, 8)
+            }
+            .buttonStyle(BorderedButtonStyle())
+        }
+    }
+}
+
+// MARK: - Preview
 #Preview {
     DashboardView()
 }

@@ -9,5 +9,5 @@ import Foundation
 
 protocol NetworkRequestable {
     
-    func request<T: Decodable>(url: URL) async throws -> T
+    func request<T: Decodable>(url: URL, authenticationMethod: AuthenticationMethod) async throws -> T
 }

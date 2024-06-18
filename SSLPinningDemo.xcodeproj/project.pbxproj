@@ -19,6 +19,7 @@
 		A0F96A3F2C217FA1000D2200 /* QuoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A3E2C217FA1000D2200 /* QuoteResponse.swift */; };
 		A0F96A432C218FD1000D2200 /* api.quotable.io.der in Resources */ = {isa = PBXBuildFile; fileRef = A0F96A422C2186DF000D2200 /* api.quotable.io.der */; };
 		A0F96A452C219300000D2200 /* URLSessionNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A442C219300000D2200 /* URLSessionNetworkManager.swift */; };
+		A0F96A492C21A5DD000D2200 /* AuthenticationMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A482C21A5DD000D2200 /* AuthenticationMethod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		A0F96A3E2C217FA1000D2200 /* QuoteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteResponse.swift; sourceTree = "<group>"; };
 		A0F96A422C2186DF000D2200 /* api.quotable.io.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = api.quotable.io.der; sourceTree = "<group>"; };
 		A0F96A442C219300000D2200 /* URLSessionNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkManager.swift; sourceTree = "<group>"; };
+		A0F96A472C21A281000D2200 /* public_key_gen.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = public_key_gen.sh; sourceTree = "<group>"; };
+		A0F96A482C21A5DD000D2200 /* AuthenticationMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationMethod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				A0F96A3C2C217C95000D2200 /* APIError.swift */,
+				A0F96A482C21A5DD000D2200 /* AuthenticationMethod.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -159,6 +163,7 @@
 			children = (
 				A0F96A412C2186C3000D2200 /* Certificates */,
 				A0F96A222C216BDC000D2200 /* Assets.xcassets */,
+				A0F96A472C21A281000D2200 /* public_key_gen.sh */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -246,6 +251,7 @@
 				A0F96A452C219300000D2200 /* URLSessionNetworkManager.swift in Sources */,
 				A0F96A212C216BDB000D2200 /* ContentView.swift in Sources */,
 				A0F96A2F2C217401000D2200 /* DashboardView.swift in Sources */,
+				A0F96A492C21A5DD000D2200 /* AuthenticationMethod.swift in Sources */,
 				A0F96A3F2C217FA1000D2200 /* QuoteResponse.swift in Sources */,
 				A0F96A332C217487000D2200 /* DashboardView+ViewModel.swift in Sources */,
 				A0F96A362C217564000D2200 /* Quote.swift in Sources */,
