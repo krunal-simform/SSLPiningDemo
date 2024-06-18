@@ -11,6 +11,12 @@
 		A0F96A212C216BDB000D2200 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A202C216BDB000D2200 /* ContentView.swift */; };
 		A0F96A232C216BDC000D2200 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0F96A222C216BDC000D2200 /* Assets.xcassets */; };
 		A0F96A262C216BDC000D2200 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0F96A252C216BDC000D2200 /* Preview Assets.xcassets */; };
+		A0F96A2F2C217401000D2200 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A2E2C217401000D2200 /* DashboardView.swift */; };
+		A0F96A332C217487000D2200 /* DashboardView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A322C217487000D2200 /* DashboardView+ViewModel.swift */; };
+		A0F96A362C217564000D2200 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A352C217564000D2200 /* Quote.swift */; };
+		A0F96A3A2C217A4F000D2200 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A392C217A4F000D2200 /* NetworkManager.swift */; };
+		A0F96A3D2C217C95000D2200 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A3C2C217C95000D2200 /* APIError.swift */; };
+		A0F96A3F2C217FA1000D2200 /* QuoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A3E2C217FA1000D2200 /* QuoteResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +25,12 @@
 		A0F96A202C216BDB000D2200 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A0F96A222C216BDC000D2200 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0F96A252C216BDC000D2200 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A0F96A2E2C217401000D2200 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		A0F96A322C217487000D2200 /* DashboardView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardView+ViewModel.swift"; sourceTree = "<group>"; };
+		A0F96A352C217564000D2200 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		A0F96A392C217A4F000D2200 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		A0F96A3C2C217C95000D2200 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		A0F96A3E2C217FA1000D2200 /* QuoteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +63,9 @@
 		A0F96A1D2C216BDB000D2200 /* SSLPinningDemo */ = {
 			isa = PBXGroup;
 			children = (
+				A0F96A3B2C217C8B000D2200 /* Models */,
+				A0F96A382C217A41000D2200 /* Network Layer */,
+				A0F96A2C2C21712E000D2200 /* Scenes */,
 				A0F96A1E2C216BDB000D2200 /* SSLPinningDemoApp.swift */,
 				A0F96A202C216BDB000D2200 /* ContentView.swift */,
 				A0F96A222C216BDC000D2200 /* Assets.xcassets */,
@@ -65,6 +80,73 @@
 				A0F96A252C216BDC000D2200 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A0F96A2C2C21712E000D2200 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A2D2C21713E000D2200 /* Dashboard */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		A0F96A2D2C21713E000D2200 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A372C2179F9000D2200 /* Models */,
+				A0F96A342C217545000D2200 /* Subviews */,
+				A0F96A312C217472000D2200 /* ViewModel */,
+				A0F96A302C217469000D2200 /* View */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		A0F96A302C217469000D2200 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A2E2C217401000D2200 /* DashboardView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A0F96A312C217472000D2200 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A322C217487000D2200 /* DashboardView+ViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A0F96A342C217545000D2200 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A352C217564000D2200 /* Quote.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		A0F96A372C2179F9000D2200 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A3E2C217FA1000D2200 /* QuoteResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A0F96A382C217A41000D2200 /* Network Layer */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A392C217A4F000D2200 /* NetworkManager.swift */,
+			);
+			path = "Network Layer";
+			sourceTree = "<group>";
+		};
+		A0F96A3B2C217C8B000D2200 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A0F96A3C2C217C95000D2200 /* APIError.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +219,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0F96A3A2C217A4F000D2200 /* NetworkManager.swift in Sources */,
 				A0F96A212C216BDB000D2200 /* ContentView.swift in Sources */,
+				A0F96A2F2C217401000D2200 /* DashboardView.swift in Sources */,
+				A0F96A3F2C217FA1000D2200 /* QuoteResponse.swift in Sources */,
+				A0F96A332C217487000D2200 /* DashboardView+ViewModel.swift in Sources */,
+				A0F96A362C217564000D2200 /* Quote.swift in Sources */,
 				A0F96A1F2C216BDB000D2200 /* SSLPinningDemoApp.swift in Sources */,
+				A0F96A3D2C217C95000D2200 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
