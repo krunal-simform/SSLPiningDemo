@@ -22,7 +22,7 @@ struct DashboardView: View {
             
             loadingButtons
         }
-        .alert(isPresented: $viewModel.isShowinError, error: viewModel.apiError) { _ in
+        .alert(viewModel.errorTitle, isPresented: $viewModel.isShowinError) { 
             Button("Retry") {
                 viewModel.isShowinError = false
                 viewModel.retry()
@@ -31,10 +31,9 @@ struct DashboardView: View {
             Button("OK", role: .cancel) {
                 viewModel.isShowinError = false
             }
-        } message: { error in
-            if case let .pinningFailed(_, certificate) = error,
-            let certificate {
-                Text(certificate)
+        } message: {
+            if let message = viewModel.errorMessage {
+                Text(message)
             }
         }
     }
@@ -46,6 +45,8 @@ extension DashboardView {
     @ViewBuilder
     private var loadingButtons: some View {
         VStack(spacing: 24) {
+            Divider()
+            
             Button {
                 viewModel.loadWithURLSessionNoPinning()
             } label: {
@@ -68,6 +69,35 @@ extension DashboardView {
                 viewModel.loadWithURLSessionPublicKeyPinning()
             } label: {
                 Text("URLSession - Public Key Pinning")
+                    .frame(minWidth: 276)
+                    .padding(.vertical, 8)
+            }
+            .buttonStyle(BorderedButtonStyle())
+            
+            Divider()
+            
+            Button {
+                viewModel.loadWithAFNoPinning()
+            } label: {
+                Text("Alamofire - Without Pinning")
+                    .frame(minWidth: 276)
+                    .padding(.vertical, 8)
+            }
+            .buttonStyle(BorderedButtonStyle())
+            
+            Button {
+                viewModel.loadWithAFCertificatePinning()
+            } label: {
+                Text("Alamofire - Certificate Pinning")
+                    .frame(minWidth: 276)
+                    .padding(.vertical, 8)
+            }
+            .buttonStyle(BorderedButtonStyle())
+            
+            Button {
+                viewModel.loadWithAFPublicKeyPinning()
+            } label: {
+                Text("Alamofire - Public Key Pinning")
                     .frame(minWidth: 276)
                     .padding(.vertical, 8)
             }
