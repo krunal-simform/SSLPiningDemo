@@ -15,9 +15,10 @@ class DashboardViewModel {
     private(set) var quote = "Let's have some words of wisdom..."
     private let urlSessionNetworkManager = URLSessionNetworkManager.shared
     private let afNetworkManager = AlamofireNetworkManager.shared
+    private let trustKitNetworkManager = TrustKitNetworkManager.shared
     private let quoteURL = URL(string: "https://api.quotable.io/quotes/random")!
     private var currentAuthMethod: AuthenticationMethod = .certificate
-    private var isURLSession: Bool = true
+    private var networkManagerType: NetworkManagerType = .urlSession
     @ObservationIgnored var errorTitle: String = ""
     @ObservationIgnored var errorMessage: String?
     var isShowinError: Bool = false {
@@ -36,7 +37,7 @@ extension DashboardViewModel {
     
     private func loadWithURLSession() {
         Task {
-            isURLSession = true
+            networkManagerType = .urlSession
             do {
                 let quoteResponse: [QuoteResponse] = try await urlSessionNetworkManager.request(url: quoteURL, authenticationMethod: currentAuthMethod)
                 quote = quoteResponse[0].content
@@ -54,7 +55,7 @@ extension DashboardViewModel {
     
     private func loadWithAF() {
         Task {
-            isURLSession = false
+            networkManagerType = .alamofire
             do {
                 let quoteResponse: [QuoteResponse] = try await afNetworkManager.request(url: quoteURL, authenticationMethod: currentAuthMethod)
                 quote = quoteResponse[0].content
@@ -69,13 +70,39 @@ extension DashboardViewModel {
             }
         }
     }
+    
+    private func loadWithTrustKit() {
+        Task {
+            networkManagerType = .trustKit
+            do {
+                let quoteResponse: [QuoteResponse] = try await trustKitNetworkManager.request(url: quoteURL, authenticationMethod: currentAuthMethod)
+                quote = quoteResponse[0].content
+            } catch let apiError as APIError {
+                errorTitle = apiError.errorDescription ?? "Something went wrong."
+                isShowinError = true
+            } catch let afError as AFError {
+                errorTitle = afError.localizedDescription
+                isShowinError = true
+            } catch {
+                print("[Error]: ", error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
 // MARK: - Methods
 extension DashboardViewModel {
     
     func retry() {
-        isURLSession ? loadWithURLSession() : loadWithAF()
+        switch networkManagerType {
+        case .urlSession:
+            loadWithURLSession()
+        case .alamofire:
+            loadWithAF()
+        case .trustKit:
+            loadWithTrustKit()
+        }
     }
 }
 
@@ -115,4 +142,17 @@ extension DashboardViewModel {
         currentAuthMethod = .publicKey
         loadWithAF()
     }
+}
+
+// MARK: - TrustKit Methods {
+extension DashboardViewModel {
+    
+    func loadWithTrustKitPublicKeyPinning() {
+        currentAuthMethod = .publicKey
+        loadWithTrustKit()
+    }
+}
+
+private enum NetworkManagerType {
+    case urlSession, alamofire, trustKit
 }

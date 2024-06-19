@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A01CD7D62C22D66700FF9D9C /* TrustKitNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD7D52C22D66700FF9D9C /* TrustKitNetworkManager.swift */; };
+		A01CD7D92C22D70000FF9D9C /* TrustKit in Frameworks */ = {isa = PBXBuildFile; productRef = A01CD7D82C22D70000FF9D9C /* TrustKit */; };
+		A01CD7DB2C22D70000FF9D9C /* TrustKitDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = A01CD7DA2C22D70000FF9D9C /* TrustKitDynamic */; };
+		A01CD7DD2C22D70000FF9D9C /* TrustKitStatic in Frameworks */ = {isa = PBXBuildFile; productRef = A01CD7DC2C22D70000FF9D9C /* TrustKitStatic */; };
 		A0F96A1F2C216BDB000D2200 /* SSLPinningDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A1E2C216BDB000D2200 /* SSLPinningDemoApp.swift */; };
 		A0F96A212C216BDB000D2200 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A202C216BDB000D2200 /* ContentView.swift */; };
 		A0F96A232C216BDC000D2200 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0F96A222C216BDC000D2200 /* Assets.xcassets */; };
@@ -26,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A01CD7D52C22D66700FF9D9C /* TrustKitNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustKitNetworkManager.swift; sourceTree = "<group>"; };
 		A0F96A1B2C216BDB000D2200 /* SSLPinningDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SSLPinningDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0F96A1E2C216BDB000D2200 /* SSLPinningDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLPinningDemoApp.swift; sourceTree = "<group>"; };
 		A0F96A202C216BDB000D2200 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -49,8 +54,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01CD7DD2C22D70000FF9D9C /* TrustKitStatic in Frameworks */,
 				A0F96A4E2C21B4C8000D2200 /* Alamofire in Frameworks */,
 				A0F96A502C21B4C8000D2200 /* AlamofireDynamic in Frameworks */,
+				A01CD7DB2C22D70000FF9D9C /* TrustKitDynamic in Frameworks */,
+				A01CD7D92C22D70000FF9D9C /* TrustKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +160,7 @@
 				A0F96A392C217A4F000D2200 /* NetworkManager.swift */,
 				A0F96A442C219300000D2200 /* URLSessionNetworkManager.swift */,
 				A0F96A4A2C21B45F000D2200 /* AlamofireNetworkManager.swift */,
+				A01CD7D52C22D66700FF9D9C /* TrustKitNetworkManager.swift */,
 			);
 			path = "Network Layer";
 			sourceTree = "<group>";
@@ -202,6 +211,9 @@
 			packageProductDependencies = (
 				A0F96A4D2C21B4C8000D2200 /* Alamofire */,
 				A0F96A4F2C21B4C8000D2200 /* AlamofireDynamic */,
+				A01CD7D82C22D70000FF9D9C /* TrustKit */,
+				A01CD7DA2C22D70000FF9D9C /* TrustKitDynamic */,
+				A01CD7DC2C22D70000FF9D9C /* TrustKitStatic */,
 			);
 			productName = SSLPinningDemo;
 			productReference = A0F96A1B2C216BDB000D2200 /* SSLPinningDemo.app */;
@@ -233,6 +245,7 @@
 			mainGroup = A0F96A122C216BDB000D2200;
 			packageReferences = (
 				A0F96A4C2C21B4C8000D2200 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A01CD7D72C22D70000FF9D9C /* XCRemoteSwiftPackageReference "TrustKit" */,
 			);
 			productRefGroup = A0F96A1C2C216BDB000D2200 /* Products */;
 			projectDirPath = "";
@@ -263,6 +276,7 @@
 			files = (
 				A0F96A4B2C21B45F000D2200 /* AlamofireNetworkManager.swift in Sources */,
 				A0F96A3A2C217A4F000D2200 /* NetworkManager.swift in Sources */,
+				A01CD7D62C22D66700FF9D9C /* TrustKitNetworkManager.swift in Sources */,
 				A0F96A452C219300000D2200 /* URLSessionNetworkManager.swift in Sources */,
 				A0F96A212C216BDB000D2200 /* ContentView.swift in Sources */,
 				A0F96A2F2C217401000D2200 /* DashboardView.swift in Sources */,
@@ -477,6 +491,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A01CD7D72C22D70000FF9D9C /* XCRemoteSwiftPackageReference "TrustKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/datatheorem/TrustKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.4;
+			};
+		};
 		A0F96A4C2C21B4C8000D2200 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -488,6 +510,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A01CD7D82C22D70000FF9D9C /* TrustKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A01CD7D72C22D70000FF9D9C /* XCRemoteSwiftPackageReference "TrustKit" */;
+			productName = TrustKit;
+		};
+		A01CD7DA2C22D70000FF9D9C /* TrustKitDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A01CD7D72C22D70000FF9D9C /* XCRemoteSwiftPackageReference "TrustKit" */;
+			productName = TrustKitDynamic;
+		};
+		A01CD7DC2C22D70000FF9D9C /* TrustKitStatic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A01CD7D72C22D70000FF9D9C /* XCRemoteSwiftPackageReference "TrustKit" */;
+			productName = TrustKitStatic;
+		};
 		A0F96A4D2C21B4C8000D2200 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A0F96A4C2C21B4C8000D2200 /* XCRemoteSwiftPackageReference "Alamofire" */;

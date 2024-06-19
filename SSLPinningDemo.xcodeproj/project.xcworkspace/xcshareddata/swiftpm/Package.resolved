@@ -1,5 +1,5 @@
 {
-  "originHash" : "11b78eba97192d19796cff581fdf69b3e65b441188b1448a1b67e5d7b825a354",
+  "originHash" : "d11d73d123c4b3c9121924f29b984b6bc810c154b280d600a7538dd87ddfbbe5",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
         "version" : "5.9.1"
+      }
+    },
+    {
+      "identity" : "trustkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/datatheorem/TrustKit",
+      "state" : {
+        "revision" : "2fb6ce731fd51f745f6cc3393462865b95c3df3c",
+        "version" : "3.0.4"
       }
     }
   ],

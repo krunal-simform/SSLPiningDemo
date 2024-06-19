@@ -102,6 +102,17 @@ extension DashboardView {
                     .padding(.vertical, 8)
             }
             .buttonStyle(BorderedButtonStyle())
+            
+            Divider()
+            
+            Button {
+                viewModel.loadWithTrustKitPublicKeyPinning()
+            } label: {
+                Text("TrustKit - Public Key Pinning")
+                    .frame(minWidth: 276)
+                    .padding(.vertical, 8)
+            }
+            .buttonStyle(BorderedButtonStyle())
         }
     }
 }
