@@ -11,6 +11,9 @@
 		A01CD7D92C22D70000FF9D9C /* TrustKit in Frameworks */ = {isa = PBXBuildFile; productRef = A01CD7D82C22D70000FF9D9C /* TrustKit */; };
 		A01CD7DB2C22D70000FF9D9C /* TrustKitDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = A01CD7DA2C22D70000FF9D9C /* TrustKitDynamic */; };
 		A01CD7DD2C22D70000FF9D9C /* TrustKitStatic in Frameworks */ = {isa = PBXBuildFile; productRef = A01CD7DC2C22D70000FF9D9C /* TrustKitStatic */; };
+		A01CD7E12C22FD0300FF9D9C /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD7E02C22FD0300FF9D9C /* KeychainManager.swift */; };
+		A01CD7E32C22FD2100FF9D9C /* KeychainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD7E22C22FD2100FF9D9C /* KeychainError.swift */; };
+		A01CD7E62C23053900FF9D9C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD7E52C23053900FF9D9C /* Constants.swift */; };
 		A0F96A1F2C216BDB000D2200 /* SSLPinningDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A1E2C216BDB000D2200 /* SSLPinningDemoApp.swift */; };
 		A0F96A212C216BDB000D2200 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F96A202C216BDB000D2200 /* ContentView.swift */; };
 		A0F96A232C216BDC000D2200 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0F96A222C216BDC000D2200 /* Assets.xcassets */; };
@@ -31,6 +34,9 @@
 
 /* Begin PBXFileReference section */
 		A01CD7D52C22D66700FF9D9C /* TrustKitNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustKitNetworkManager.swift; sourceTree = "<group>"; };
+		A01CD7E02C22FD0300FF9D9C /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		A01CD7E22C22FD2100FF9D9C /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
+		A01CD7E52C23053900FF9D9C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A0F96A1B2C216BDB000D2200 /* SSLPinningDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SSLPinningDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0F96A1E2C216BDB000D2200 /* SSLPinningDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLPinningDemoApp.swift; sourceTree = "<group>"; };
 		A0F96A202C216BDB000D2200 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,6 +71,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A01CD7DF2C22FCFA00FF9D9C /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				A01CD7E02C22FD0300FF9D9C /* KeychainManager.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		A01CD7E42C23052000FF9D9C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A01CD7E52C23053900FF9D9C /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		A0F96A122C216BDB000D2200 = {
 			isa = PBXGroup;
 			children = (
@@ -84,10 +106,12 @@
 		A0F96A1D2C216BDB000D2200 /* SSLPinningDemo */ = {
 			isa = PBXGroup;
 			children = (
+				A01CD7DF2C22FCFA00FF9D9C /* Keychain */,
 				A0F96A3B2C217C8B000D2200 /* Models */,
 				A0F96A382C217A41000D2200 /* Network Layer */,
 				A0F96A2C2C21712E000D2200 /* Scenes */,
 				A0F96A402C2186AE000D2200 /* Resources */,
+				A01CD7E42C23052000FF9D9C /* Helpers */,
 				A0F96A1E2C216BDB000D2200 /* SSLPinningDemoApp.swift */,
 				A0F96A202C216BDB000D2200 /* ContentView.swift */,
 				A0F96A242C216BDC000D2200 /* Preview Content */,
@@ -170,6 +194,7 @@
 			children = (
 				A0F96A3C2C217C95000D2200 /* APIError.swift */,
 				A0F96A482C21A5DD000D2200 /* AuthenticationMethod.swift */,
+				A01CD7E22C22FD2100FF9D9C /* KeychainError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -274,13 +299,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01CD7E12C22FD0300FF9D9C /* KeychainManager.swift in Sources */,
 				A0F96A4B2C21B45F000D2200 /* AlamofireNetworkManager.swift in Sources */,
 				A0F96A3A2C217A4F000D2200 /* NetworkManager.swift in Sources */,
 				A01CD7D62C22D66700FF9D9C /* TrustKitNetworkManager.swift in Sources */,
 				A0F96A452C219300000D2200 /* URLSessionNetworkManager.swift in Sources */,
+				A01CD7E62C23053900FF9D9C /* Constants.swift in Sources */,
 				A0F96A212C216BDB000D2200 /* ContentView.swift in Sources */,
 				A0F96A2F2C217401000D2200 /* DashboardView.swift in Sources */,
 				A0F96A492C21A5DD000D2200 /* AuthenticationMethod.swift in Sources */,
+				A01CD7E32C22FD2100FF9D9C /* KeychainError.swift in Sources */,
 				A0F96A3F2C217FA1000D2200 /* QuoteResponse.swift in Sources */,
 				A0F96A332C217487000D2200 /* DashboardView+ViewModel.swift in Sources */,
 				A0F96A362C217564000D2200 /* Quote.swift in Sources */,

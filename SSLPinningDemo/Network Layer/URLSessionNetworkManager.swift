@@ -13,13 +13,15 @@ class URLSessionNetworkManager: NetworkRequestable {
     
     // MARK: - Vars & Lets
     static let shared = URLSessionNetworkManager()
-    private lazy var session = createURLSession()
+    private var session: URLSession!
+    var userCertificatesData: [Data] = []
     
     // MARK: - Methods
     func request<T: Decodable>(url: URL, authenticationMethod: AuthenticationMethod = .certificate) async throws -> T {
-        let delegate = AuthenticationDelegate(method: authenticationMethod)
+        let delegate = AuthenticationDelegate(method: authenticationMethod, userCertificatesData: userCertificatesData)
+        session = createURLSession(delegate: delegate)
         do {
-            let (data, _) = try await session.data(from: url, delegate: delegate)
+            let (data, _) = try await session.data(from: url)
             
             if data.isEmpty {
                 throw APIError.unknown("Data: \(data), but expected: \(T.self)")
@@ -50,9 +52,9 @@ class URLSessionNetworkManager: NetworkRequestable {
 // MARK: - Private Methods
 extension URLSessionNetworkManager {
     
-    private func createURLSession() -> URLSession {
+    private func createURLSession(delegate: URLSessionTaskDelegate) -> URLSession {
         let configuration = URLSessionConfiguration.default
-        let session = URLSession(configuration: configuration)
+        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
         return session
     }
 }
@@ -63,6 +65,7 @@ private class AuthenticationDelegate: NSObject, URLSessionTaskDelegate {
     let method: AuthenticationMethod
     private(set) var invalidCertificate: SecCertificate?
     private let publicKeyHash = "n1LbOnAI6SOy82FR17x5jpF63+Q0hL3epJF0clFKcnY="
+    private let userCertificatesData: [Data] 
     let rsa2048Asn1Header:[UInt8] = [
 //        0x2d, 0x6e, 0x20, 0x6e, 0x31, 0x4c,
 //        0x62, 0x4f, 0x6e, 0x41, 0x49, 0x36,
@@ -76,16 +79,27 @@ private class AuthenticationDelegate: NSObject, URLSessionTaskDelegate {
     
     // MARK: - Delegate Methods
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
-        
+        print("## chall1")
         return switch method {
         case .noPinning:
-            (URLSession.AuthChallengeDisposition.performDefaultHandling, nil)
+            (URLSession.AuthChallengeDisposition.useCredential, nil)
         case .certificate:
             performCertificatePinning(with: challenge)
         case .publicKey:
             performPublicKeyPinning(with: challenge)
         }
-        
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
+        print("## chall2")
+        return switch method {
+        case .noPinning:
+            (URLSession.AuthChallengeDisposition.useCredential, nil)
+        case .certificate:
+            performCertificatePinning(with: challenge)
+        case .publicKey:
+            performPublicKeyPinning(with: challenge)
+        }
     }
     
     private func performCertificatePinning(with challenge: URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?) {
@@ -110,7 +124,7 @@ private class AuthenticationDelegate: NSObject, URLSessionTaskDelegate {
         let remoteCertificateData = Data(referencing: SecCertificateCopyData(remoteCertificate))
         let localCertificateData = getLocalCertificateData()
         
-        if isServerTrusted && remoteCertificateData == localCertificateData {
+        if isServerTrusted && isCertificateValid() {
             print("Certificate pinning successful.")
             let credentials = URLCredential(trust: serverTrust)
             return (URLSession.AuthChallengeDisposition.useCredential, credentials)
@@ -118,6 +132,11 @@ private class AuthenticationDelegate: NSObject, URLSessionTaskDelegate {
             print("SSL Pinning failed.")
             invalidCertificate = remoteCertificate
             return (URLSession.AuthChallengeDisposition.cancelAuthenticationChallenge, nil)
+        }
+        
+        func isCertificateValid() -> Bool {
+            remoteCertificateData == localCertificateData ||
+            userCertificatesData.contains(remoteCertificateData)
         }
     }
     
@@ -160,8 +179,9 @@ private class AuthenticationDelegate: NSObject, URLSessionTaskDelegate {
     }
     
     // MARK: - Initializer
-    init(method: AuthenticationMethod = .certificate) {
+    init(method: AuthenticationMethod = .certificate, userCertificatesData: [Data] = []) {
         self.method = method
+        self.userCertificatesData = userCertificatesData
     }
 }
 

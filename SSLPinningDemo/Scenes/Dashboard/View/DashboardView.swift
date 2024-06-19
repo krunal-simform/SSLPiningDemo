@@ -11,6 +11,8 @@ struct DashboardView: View {
 
     // MARK: - Vars & Lets
     @State private var viewModel = DashboardViewModel()
+    @State private var isPickingDocument = false
+    @State private var isShowingDeleteAlert = false
     
     // MARK: - Body
     var body: some View {
@@ -18,11 +20,24 @@ struct DashboardView: View {
             Quote(viewModel.quote)
                 .preferredColorScheme(.dark)
             
-            Spacer()
+            ScrollView {
+                loadingButtons
+            }
+            .scrollIndicators(.hidden)
             
-            loadingButtons
+            certificateManagerView
         }
-        .alert(viewModel.errorTitle, isPresented: $viewModel.isShowinError) { 
+        .frame(maxHeight: .infinity)
+        .fileImporter(isPresented: $isPickingDocument, allowedContentTypes: [.x509Certificate]) { result in
+            switch result {
+            case .success(let url):
+                viewModel.addUserCertificate(url: url)
+            case .failure(let error):
+                viewModel.userCertificateError = error.localizedDescription
+                viewModel.isShowingUserCertificateError = true
+            }
+        }
+        .alert(viewModel.errorTitle, isPresented: $viewModel.isShowinError) {
             Button("Retry") {
                 viewModel.isShowinError = false
                 viewModel.retry()
@@ -36,11 +51,50 @@ struct DashboardView: View {
                 Text(message)
             }
         }
+        .alert(viewModel.userCertificateError, isPresented: $viewModel.isShowingUserCertificateError) {
+            Button("OK", role: .cancel) {
+                viewModel.isShowingUserCertificateError = false
+            }
+        }
+        .alert("Delete your certificate?", isPresented: $isShowingDeleteAlert) {
+            Button("Delete", role: .destructive) {
+                viewModel.deleteUserCertificate()
+                isShowingDeleteAlert = false
+            }
+        }
     }
 }
 
 // MARK: - Views
 extension DashboardView {
+    
+    @ViewBuilder
+    private var certificateManagerView: some View {
+        HStack(spacing: 30) {
+            Button {
+                isPickingDocument = true
+            } label: {
+                Image(.certificate)
+                    .resizable()
+            }
+            .tint(.white)
+            .buttonStyle(BorderedButtonStyle())
+            .frame(width: 60, height: 50)
+            
+            Button {
+                isShowingDeleteAlert = true
+            } label: {
+                Image(systemName: "xmark")
+                    .resizable()
+                    .padding(4)
+            }
+            .tint(.orange)
+            .buttonStyle(BorderedButtonStyle())
+            .frame(width: 60, height: 50)
+        }
+        .padding(.top, 12)
+        .padding(.bottom, 24)
+    }
     
     @ViewBuilder
     private var loadingButtons: some View {

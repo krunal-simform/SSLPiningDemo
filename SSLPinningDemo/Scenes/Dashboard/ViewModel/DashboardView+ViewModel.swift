@@ -19,6 +19,7 @@ class DashboardViewModel {
     private let quoteURL = URL(string: "https://api.quotable.io/quotes/random")!
     private var currentAuthMethod: AuthenticationMethod = .certificate
     private var networkManagerType: NetworkManagerType = .urlSession
+    
     @ObservationIgnored var errorTitle: String = ""
     @ObservationIgnored var errorMessage: String?
     var isShowinError: Bool = false {
@@ -30,10 +31,23 @@ class DashboardViewModel {
         }
     }
     
+    @ObservationIgnored var userCertificateError: String = ""
+    var isShowingUserCertificateError = false
+    
+    // MARK: - Initializer
+    init() {
+        loadUserCertificates()
+    }
 }
 
-// MARK: - URLSession Methods
+// MARK: - Private Methods
 extension DashboardViewModel {
+    
+    private func loadUserCertificates() {
+        guard let certificate = KeychainManager.getCertificate(label: Constants.USER_CERTIFICATE_LABEL) else { return }
+        let certificateData = SecCertificateCopyData(certificate) as Data
+        urlSessionNetworkManager.userCertificatesData.append(certificateData)
+    }
     
     private func loadWithURLSession() {
         Task {
@@ -111,11 +125,13 @@ extension DashboardViewModel {
     
     func loadWithURLSessionNoPinning() {
         currentAuthMethod = .noPinning
+        print("no", currentAuthMethod)
         loadWithURLSession()
     }
     
     func loadWithURLSessionCertificatePinning() {
         currentAuthMethod = .certificate
+        print("Certificate", currentAuthMethod)
         loadWithURLSession()
     }
     
@@ -150,6 +166,37 @@ extension DashboardViewModel {
     func loadWithTrustKitPublicKeyPinning() {
         currentAuthMethod = .publicKey
         loadWithTrustKit()
+    }
+}
+
+// MARK: - Keychain
+extension DashboardViewModel {
+    
+    func addUserCertificate(url: URL) {
+        let accessing = url.startAccessingSecurityScopedResource()
+        defer {
+            if accessing {
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            urlSessionNetworkManager.userCertificatesData.append(data)
+            try KeychainManager.saveCertificate(data, label: Constants.USER_CERTIFICATE_LABEL)
+        } catch let error as KeychainError {
+            userCertificateError = error.errorDescription ?? "Can't save certificate to keychain."
+            isShowingUserCertificateError = true
+        } catch {
+            userCertificateError = error.localizedDescription
+            isShowingUserCertificateError = true
+            print("[Error]: ", error.localizedDescription)
+        }
+    }
+    
+    func deleteUserCertificate() {
+        urlSessionNetworkManager.userCertificatesData.removeAll()
+        KeychainManager.deleteCertificate(label: Constants.USER_CERTIFICATE_LABEL)
     }
 }
 
